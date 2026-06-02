@@ -131,7 +131,7 @@ Heap Sort is everycase: all inputs run in $\Theta(n \log n)$.
 
 **Proof of $O(n \log n)$:**
 
-The build phase runs `siftDown` on $\lfloor n/2 \rfloor$ nodes. Each sift from height $k$ costs $O(k)$. The total build cost is:
+The build phase runs `shiftDown` on $\lfloor n/2 \rfloor$ nodes. Each sift from height $k$ costs $O(k)$. The total build cost is:
 
 $$T_{\text{build}}(n) = \sum_{k=0}^{\lfloor \log_2 n \rfloor} \left\lceil \frac{n}{2^{k+1}} \right\rceil \cdot O(k) = O(n)$$
 
