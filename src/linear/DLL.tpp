@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include "linear/DLL.h"
 
 template <typename T>
 DLL<T>::DLL() : head(nullptr), tail(nullptr), sz(0) {}

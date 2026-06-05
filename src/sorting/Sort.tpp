@@ -1,4 +1,5 @@
 #include "sorting/Sort.h"
+#include <cstddef>
 #include <algorithm>
 
 template <typename T>
@@ -35,16 +36,25 @@ void selectionSort(T* begin, T* end) {
 }
 
 template <typename T>
-void insertionSort(T* begin, T* end) {
+void insertionSort(T* begin, T* end, int move) {
     if (begin >= end) return;
-    for (T* i = begin + 1; i != end; ++i) {
+    for (T* i = begin + 1; i < end; i += move) {
         T temp = *i;
         T* j = i;
-        for (; j != begin && temp < *(j - 1); --j) {
-            *j = *(j - 1);
+        for (; j >= begin + move && temp < *(j - move); j -= move) {
+            *j = *(j - move);
         }
 
         *j = temp;
+    }
+}
+
+template <typename T>
+void shellSort(T* begin, T* end) {
+    if (begin >= end) return;
+
+    for (int i = ((end - begin) >> 1); i > 0; i >>= 1) {
+        insertionSort(begin, end, i);
     }
 }
 

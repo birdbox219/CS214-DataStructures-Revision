@@ -7,7 +7,10 @@ template <typename T>
 void selectionSort(T* begin, T* end);
 
 template <typename T>
-void insertionSort(T* begin, T* end);
+void shellSort(T* begin, T* end);
+
+template <typename T>
+void insertionSort(T* begin, T* end, int move = 1);
 
 template <typename T>
 void mergeSort(T* begin, T* end);
