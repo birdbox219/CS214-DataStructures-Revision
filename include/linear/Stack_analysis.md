@@ -134,3 +134,60 @@ top()  → 20
 pop()  → removes 20
 top()  → 10
 ```
+
+---
+
+## Stack Applications
+
+### 1. Parentheses Balancing
+Used to check if an expression has balanced brackets `()`, `[]`, `{}`.
+
+**Algorithm:**
+1. Traverse the string.
+2. If opening bracket, `push` it onto stack.
+3. If closing bracket:
+   - If stack is empty → Unbalanced.
+   - `pop` from stack. If it doesn't match the closing bracket → Unbalanced.
+4. After traversal, if stack is empty → Balanced; else → Unbalanced.
+
+### 2. Postfix Expression Evaluation
+Scan the postfix expression (e.g., `8 5 3 * +`) from left to right.
+
+**Algorithm:**
+1. If operand (number), `push` onto stack.
+2. If operator:
+   - `pop` two operands: `op2` then `op1`.
+   - Compute `result = op1 (operator) op2`.
+   - `push` the result back onto stack.
+3. Final result is the only item left on the stack.
+
+**Example Trace (`8 5 3 * +`):**
+1. Read `8`: Push `8`. [8]
+2. Read `5`: Push `5`. [8, 5]
+3. Read `3`: Push `3`. [8, 5, 3]
+4. Read `*`: Pop `3`, Pop `5`. Compute `5 * 3 = 15`. Push `15`. [8, 15]
+5. Read `+`: Pop `15`, Pop `8`. Compute `8 + 15 = 23`. Push `23`. [23]
+Result: 23.
+
+### 3. Infix to Postfix Conversion (Shunting-yard)
+Uses a stack for operators to maintain precedence.
+
+**Rules:**
+1. Print operands immediately.
+2. If `(`: Push to stack.
+3. If `)`: Pop and print until `(` is found. Pop `(`.
+4. If operator:
+   - While stack top has higher or equal precedence, pop and print.
+   - Push current operator.
+5. After scanning, pop and print remaining operators.
+
+**Precedence:** `^` (highest) > `*`, `/` > `+`, `-` (lowest).
+
+**Example Trace (`A + B * C`):**
+1. Read `A`: Output `A`.
+2. Read `+`: Push `+`. Stack: `[+]`
+3. Read `B`: Output `AB`.
+4. Read `*`: `*` > `+`, so push `*`. Stack: `[+, *]`
+5. Read `C`: Output `ABC`.
+6. End: Pop `*`, pop `+`. Output `ABC*+`.
+Result: `ABC*+`

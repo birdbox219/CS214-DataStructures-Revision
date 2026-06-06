@@ -249,6 +249,39 @@ Non-comparison sorts (Counting Sort, Radix Sort) **circumvent** this lower bound
    - Perform a stable counting sort on the current digit.
 3. After all digit positions are processed, the array is fully sorted.
 
+### Quickselect (Kth Smallest Element)
+Quickselect is a selection algorithm to find the $k$-th smallest element in an unordered list. It is related to the Quick Sort sorting algorithm.
+
+1. **Partition:** Similar to Quick Sort, choose a pivot and partition the array.
+2. **Select:**
+   - If the pivot's final index is $k-1$, the pivot is the $k$-th smallest.
+   - If the pivot's final index is $> k-1$, recurse on the left partition.
+   - If the pivot's final index is $< k-1$, recurse on the right partition.
+
+**Complexity Analysis:**
+- **Best Case:** $O(n)$ — The pivot is always the target.
+- **Average Case:** $O(n)$ — On average, we eliminate half the search space in each step.
+  - Recurrence: $T(n) = T(n/2) + O(n) = O(n + n/2 + n/4 + \dots) = O(2n) = O(n)$.
+- **Worst Case:** $O(n^2)$ — Similar to Quick Sort, if the pivot is always the min/max and the target is at the other end.
+- **Space:** $O(1)$ — In-place with tail recursion.
+
+---
+
+## Manual Tracing Examples
+
+### In-Place Quick Sort Partition (Lomuto)
+Initial: `[5, 2, 9, 1, 7, 6, 3]` (Pivot: 3)
+1. `i = -1`. Compare 5 with 3: `5 > 3`, no swap.
+2. Compare 2 with 3: `2 <= 3`, `i = 0`. Swap `arr[0]` (5) with `arr[0]` (5). `[5, 2, 9, 1, 7, 6, 3]`? Wait, swap 2 with 5.
+   - Correction: `i` tracks the end of the "less than" part.
+   - `j=0 (5)`: `5 > 3`, no swap.
+   - `j=1 (2)`: `2 <= 3`, `i++ (0)`, swap `arr[0]`(5) and `arr[1]`(2). `[2, 5, 9, 1, 7, 6, 3]`
+   - `j=2 (9)`: `9 > 3`, no swap.
+   - `j=3 (1)`: `1 <= 3`, `i++ (1)`, swap `arr[1]`(5) and `arr[3]`(1). `[2, 1, 9, 5, 7, 6, 3]`
+   - `j=4, 5`: No swaps.
+   - Final: Swap pivot(3) with `arr[i+1]`(9). `[2, 1, 3, 5, 7, 6, 9]`
+Result: Pivot 3 at index 2. Left: `[2, 1]`, Right: `[5, 7, 6, 9]`.
+
 ### Heap Sort
 1. Build a max-heap from the array (heapify all non-leaf nodes).
 2. Swap the root (maximum element) with the last unsorted element.

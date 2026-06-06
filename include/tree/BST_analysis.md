@@ -104,6 +104,38 @@ Every node is visited when searching for a missing value greater than all existi
 
 Finding the target costs $O(n)$ in a degenerate tree. The two-child case adds another $O(n)$ successor search. Total: $O(n)$.
 
+---
+
+## BST Deletion Cases
+
+Deleting a node from a BST requires maintaining the BST property. There are three cases:
+
+### Case 1: Node is a Leaf
+- Simply set the parent's pointer to null and delete the node.
+- Complexity: $O(h)$ to find.
+
+### Case 2: Node has One Child
+- Replace the node with its child (bypass the node).
+- Complexity: $O(h)$ to find.
+
+### Case 3: Node has Two Children
+- We cannot simply delete the node. We must replace its value with a node that is "close" in value to maintain order.
+- **Option A: Inorder Successor** (Smallest node in the **right** subtree).
+  1. Find the min node in the right subtree (`node->right` then follow `left` pointers).
+  2. Copy the successor's value to the target node.
+  3. Delete the successor (which is guaranteed to have at most one child).
+- **Option B: Inorder Predecessor** (Largest node in the **left** subtree).
+  1. Find the max node in the left subtree (`node->left` then follow `right` pointers).
+  2. Copy the predecessor's value to the target node.
+  3. Delete the predecessor.
+
+**Successor vs Predecessor:**
+- Both are equally valid.
+- The successor is the node that would appear immediately after the target in an inorder traversal.
+- The predecessor is the node that would appear immediately before.
+
+---
+
 #### `min` / `max` — $O(n)$
 
 When the tree is a right-skewed chain, `min` traverses all $n$ nodes; when left-skewed, `max` traverses all $n$.
